@@ -3,6 +3,6 @@ Esse projeto é dedicado a criação de uma tela de login e cadastro autenticada
 
   <h4>os códigos apresentam descrição com explicações ;)</h4>
 
-<br> <br>
+<br>
 Links de videos e artigos usados para estudo:
 
