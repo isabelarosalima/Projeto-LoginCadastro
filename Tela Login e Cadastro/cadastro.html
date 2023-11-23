@@ -14,30 +14,33 @@
         <div class='card'>
           <h1> Cadastrar </h1>
 
+          <div id="msgError"></div>
+          <div id="msgSuccess"></div>
+
           <div class='label-float'>
             <input type='text' id='nome' placeholder='' required>
-            <label for='nome'>Nome</label>
-        </div>
+            <label id="labelNome" for='nome'>Nome</label>
+         </div>
     
             <div class='label-float'>
                 <input type='text' id='usuario' placeholder='' required>
-                <label for='usuario'>Usuário</label>
+                <label id="labelUsuario" for='usuario'>Usuário</label>
             </div>
           
             <div class='label-float'>
                 <input type='password' id='senha' placeholder='' required>
-                <label for='senha'>senha</label>
+                <label id="labelSenha" for='senha'>senha</label>
                 <i id= 'verSenha' class="fa fa-eye" aria-hidden="true"></i>
             </div>
 
             <div class='label-float'>
                 <input type='text' id='confirmarSenha' placeholder='' required>
-                <label for='confirmarSenha'>Confirmar Senha</label>
+                <label id="labelConfirmar" for='confirmarSenha'>Confirmar Senha</label>
                 <i id= 'verConfirmarSenha' class="fa fa-eye" aria-hidden="true"></i>
             </div>
 
             <div class="justify-center">
-                <button>Cadastrar</button>
+                <button onclick="cadastrar()">Cadastrar</button>
             </div>
 
             
@@ -51,34 +54,131 @@
 
 
 <script>
-    var btn = document.querySelector('#verSenha')
-    var btnConfirm = document.querySelector('#verConfirmarSenha')
-    /*minha variavel botao esta acessando o documento e através do querySelector eu vou procurar a minha class, logo em seguida adicionei minha class a minha variavel*/
-        
-        btn.addEventListener('click', ()=>{
-        let inputSenha = document.querySelector('#senha')
-    
-            if(inputSenha.getAttribute('type') == 'password'){
-            inputSenha.setAttribute('type', 'text')
+var btn = document.querySelector('#verSenha');
+    /*minha variavel btn esta acessando o documento e através do querySelector eu vou procurar a minha class, logo em seguida adicionei minha class a minha variavel*/
+var btnConfirm = document.querySelector('#verConfirmarSenha');
 
-            } else {
-            inputSenha.setAttribute('type', 'password')
-            }
-        })
+var nome= document.querySelector('#nome');
+var labelNome= document.querySelector('#labelNome');
+let validNome 
 
-        /*inserir um evento que logo em seguida acontecerá algo */
+var usuario= document.querySelector('#usuario');
+var labelUsuario= document.querySelector('#labelUsuario');
+let validUsuario
 
-        btnConfirm.addEventListener('click', ()=>{
-        let inputConfirmSenha = document.querySelector('#confirmarSenha')
+var senha= document.querySelector('#senha');
+var labelSenha= document.querySelector('#labelSenha');
+let validSenha 
+
+var confirmarSenha= document.querySelector('#confirmarSenha');
+var labelConfirmar= document.querySelector('#labelConfirmar');
+let validConfirmar /*variavl booleana */
+
+let msgError = document.querySelector('#msgError')
+let msgSuccess = document.querySelector('#msgSuccess')
+
+nome.addEventListener('keyup', () => {
+    if(nome.value.length <= 2){
+        labelNome.setAttribute('style', 'color: red');
+        labelNome.innerHTML = 'Nome *Insira no mínimo 3 caracteres'
+        nome.setAttribute('style', 'border-color: red');
+        var validNome = false
+    }else{
+        labelNome.setAttribute('style', 'color: green');
+        labelNome.innerHTML = 'Nome'
+        nome.setAttribute('style', 'border-color: green');    
+        var validNome = true
+    }
+})
+ 
+usuario.addEventListener('keyup', () => { 
+    if(usuario.value.length <= 4){
+        labelUsuario.setAttribute('style', 'color: red');
+        labelUsuario.innerHTML = 'Usuário *Insira no mínimo 5 caracteres'
+        usuario.setAttribute('style', 'border-color: red');
+        var validUsuario = false
+    }else{
+        labelUsuario.setAttribute('style', 'color: green');
+        labelUsuario.innerHTML = 'Usuário'
+        usuario.setAttribute('style', 'border-color: green')
+        var validUsuario = true
+    }
+})
+
+senha.addEventListener('keyup', () => { 
+    if(senha.value.length <= 7){
+        labelSenha.setAttribute('style', 'color: red');
+        labelSenha.innerHTML = 'Senha *Insira no mínimo 8 caracteres'
+        senha.setAttribute('style', 'border-color: red');
+        validSenha = false
+    }else{
+        labelSenha.setAttribute('style', 'color: green');
+        labelSenha.innerHTML = 'Senha'
+        senha.setAttribute('style', 'border-color: green')
+        validSenha = true
+    }
+})
+
+confirmarSenha.addEventListener('keyup', () => { 
+    if(senha.value != confirmarSenha.value){
+        labelConfirmar.setAttribute('style', 'color: red');
+        labelConfirmar.innerHTML = 'Confirmar Senha *As senhas não conferem'
+        confirmarSenha.setAttribute('style', 'border-color: red');
+        validConfirmar = false
+    }else{
+        labelConfirmar.setAttribute('style', 'color: green');
+        labelConfirmar.innerHTML = 'Confirmar Senha'
+        confirmarSenha.setAttribute('style', 'border-color: green')
+        validConfirmar = true
+    }
+})
+
+    /*estou criando uma função e adicionando um evento keyup, ao digitar e tirar o dedo da tecla, ele começa a fazer o que estiver na minha eron function*/
+
+   /*vantagens = nosso html ficz menos poluído*/
+btn.addEventListener('click', ()=>{
+    let inputSenha = document.querySelector('#senha')
     
-            if(inputConfirmSenha.getAttribute('type') == 'password'){
-            inputConfirmSenha.setAttribute('type', 'text')
-            } else {
-                inputConfirmSenha.setAttribute('type', 'password')
-            }
-        })
+    if(inputSenha.getAttribute('type') == 'password'){
+     inputSenha.setAttribute('type', 'text')
+
+    } else {
+     inputSenha.setAttribute('type', 'password')
+    }
+
+})
+    /*inserir um evento que logo em seguida acontecerá algo */
+btnConfirm.addEventListener('click', ()=>{
+    let inputConfirmSenha = document.querySelector('#confirmarSenha')
     
-    </script>
+    if(inputConfirmSenha.getAttribute('type') == 'password'){
+     inputConfirmSenha.setAttribute('type', 'text')
+
+    } else {
+     inputConfirmSenha.setAttribute('type', 'password')
+    }
+})
+
+
+
+function cadastrar() {
+    // Supondo que validNome, validUsuario, validSenha e validConfirmar são variáveis booleanas definidas em algum lugar
+
+    // Supondo que msgSuccess e msgError são elementos HTML existentes
+    var msgSuccess = document.getElementById('msgSuccess');
+    var msgError = document.getElementById('msgError');
+
+
+    if (validNome == false && validUsuario == false && validSenha == false && validConfirmar == false) {
+        msgSuccess.style.display = 'block';
+        msgSuccess.innerHTML += '<strong>Cadastrando Usuário</strong>';
+    } else {
+        msgError.style.display = 'block';
+        msgError.innerHTML += '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>';
+    }
+}
+
+</script>
 
   
   
